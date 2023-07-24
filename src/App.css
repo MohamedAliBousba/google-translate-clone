@@ -1,38 +1,54 @@
 .App {
   text-align: center;
+  color: #ffffff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  height: 50vh;
+  width: 80vw;
+  background-color: #424242;
+  border-radius: 16px;
+  margin: 0 auto;
+  margin-top: 10vh;
+  overflow: hidden;
+  perspective: 1px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.language-bar {
+  background-color: #424242;
+  display: flex;
+  border-bottom: 1px solid #616161;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.language-bar div {
+  flex: 1;
+  padding: 16px 0;
+  text-transform: uppercase;
+}
+
+.translation-boxes {
+  flex-grow: 1;
+  display: flex;
+}
+
+.translation-boxes div {
+  flex: 1;
+}
+
+.translation-boxes div:nth-child(1) textarea {
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  color: #ffffff;
+  padding: 16px;
+  font-size: 18px;
+}
+
+.translation-boxes div:nth-child(2) {
+  background-color: #757575;
 }
