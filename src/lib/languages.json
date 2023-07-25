@@ -1,0 +1,22 @@
+{
+  "data": [
+    { "code": "ar", "name": "Arabic" },
+    { "code": "bn", "name": "Bengali" },
+    { "code": "da", "name": "Danish" },
+    { "code": "de", "name": "German" },
+    { "code": "en", "name": "English" },
+    { "code": "es", "name": "Spanish" },
+    { "code": "fa", "name": "Persian" },
+    { "code": "fr", "name": "French" },
+    { "code": "hi", "name": "Hindi" },
+    { "code": "id", "name": "Indonesian" },
+    { "code": "ja", "name": "Japanese" },
+    { "code": "ko", "name": "Korean" },
+    { "code": "la", "name": "Latin" },
+    { "code": "ms", "name": "Malay" },
+    { "code": "pt", "name": "Portuguese" },
+    { "code": "tr", "name": "Turkish" },
+    { "code": "ur", "name": "Urdu" },
+    { "code": "zh", "name": "Chinese" }
+  ]
+}

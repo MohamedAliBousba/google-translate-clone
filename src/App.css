@@ -16,18 +16,6 @@
   flex-direction: column;
 }
 
-.language-bar {
-  background-color: #424242;
-  display: flex;
-  border-bottom: 1px solid #616161;
-}
-
-.language-bar div {
-  flex: 1;
-  padding: 16px 0;
-  text-transform: uppercase;
-}
-
 .translation-boxes {
   flex-grow: 1;
   display: flex;
@@ -35,18 +23,6 @@
 
 .translation-boxes div {
   flex: 1;
-}
-
-.translation-boxes div:nth-child(1) textarea {
-  width: 100%;
-  height: 100%;
-  background-color: inherit;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  color: #ffffff;
-  padding: 16px;
-  font-size: 18px;
 }
 
 .translation-boxes div:nth-child(2) {
