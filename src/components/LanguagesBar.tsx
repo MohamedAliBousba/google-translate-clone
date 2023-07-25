@@ -3,22 +3,51 @@ import styled from "styled-components";
 import { AVAILABLE_LANGUAGES } from "utils/constants";
 import { SwitchIcon } from "../assets/SwitchIcon";
 import { Select, SelectProps } from "antd";
+import { useSearchParams } from "react-router-dom";
 
 const LanguagesBar = () => {
-  const [sourceLang, setSourceLang] = React.useState("en");
-  const [targetLang, setTargetLang] = React.useState("ar");
+  const [searchParams, setURLSearchParams] = useSearchParams();
+  const [sourceLang, setSourceLang] = React.useState(
+    searchParams.get("sl") || "en"
+  );
+  const [targetLang, setTargetLang] = React.useState(
+    searchParams.get("tl") || "ar"
+  );
+
+  const setLangParam = (key: string, value: string) =>
+    setURLSearchParams((params) => {
+      params.set(key, value);
+      return params;
+    });
 
   const switchLangsHandler = () => {
     const sl = sourceLang;
+    setLangParam("sl", targetLang);
+    setLangParam("tl", sourceLang);
     setSourceLang(targetLang);
     setTargetLang(sl);
   };
+
+  const handleChangeSourceLang = (value: string) => {
+    setSourceLang(value);
+    setLangParam("sl", value);
+  };
+
+  const handleChangeTargetLang = (value: string) => {
+    setTargetLang(value);
+    setLangParam("tl", value);
+  };
+
+  React.useEffect(() => {
+    if (!searchParams.get("sl")) handleChangeSourceLang("en");
+    if (!searchParams.get("tl")) handleChangeTargetLang("ar");
+  }, []);
 
   return (
     <Container>
       <StyledSelect
         value={sourceLang}
-        onChange={(value: string) => setSourceLang(value)}
+        onChange={handleChangeSourceLang}
         options={AVAILABLE_LANGUAGES.map((language) => ({
           value: language.code,
           label: language.name,
@@ -31,7 +60,7 @@ const LanguagesBar = () => {
       </button>
       <StyledSelect
         value={targetLang}
-        onChange={(value: string) => setTargetLang(value)}
+        onChange={handleChangeTargetLang}
         options={AVAILABLE_LANGUAGES.map((language) => ({
           value: language.code,
           label: language.name,

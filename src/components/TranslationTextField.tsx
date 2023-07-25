@@ -1,14 +1,37 @@
+import React from "react";
 import styled from "styled-components";
 import CloseIcon from "../assets/CloseIcon";
+import { debounce } from "lodash";
+import { useSearchParams } from "react-router-dom";
 
 const TranslationTextField = () => {
+  const [searchParams, setURLSearchParams] = useSearchParams();
+  const [text, setText] = React.useState(searchParams.get("text") || "");
+
+  const setTextParam = (value: string) =>
+    setURLSearchParams((params) => {
+      params.set("text", value);
+      return params;
+    });
+
   const clearTextHandler = () => {
-    console.log("clear");
+    setText("");
+    setTextParam("")
+  };
+
+  const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setText(value);
+    setTextParam(value)
   };
 
   return (
     <Container>
-      <textarea placeholder="Start typing.." cols={30} rows={10}></textarea>
+      <textarea
+        value={text}
+        onChange={handleChangeText}
+        placeholder="Start typing.."
+      ></textarea>
       <button onClick={clearTextHandler}>
         <CloseIcon />
       </button>
