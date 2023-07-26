@@ -2,13 +2,28 @@ import { debounce } from "lodash";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { translate } from "api/translations";
 
 const TranslatedText = () => {
   const [searchParams] = useSearchParams();
   const text = searchParams.get("text") || "";
+  const tl = searchParams.get("tl") || "ar";
+  const sl = searchParams.get("sl") || "ar";
+  const isRTL = ["ar", "fa", "ur"].includes(tl);
+  const [translatedText, setTranslatedText] = React.useState([""]);
 
-  const translateHandler = (value: string) => {
-    console.log("text = ", value);
+  const translateHandler = async (value: string, tl: string, sl: string) => {
+    if (!value) {
+      setTranslatedText([""]);
+      return;
+    }
+    try {
+      const response = await translate(tl, sl, value);
+      const translatedText = response.data?.data?.translatedText;
+      setTranslatedText(translatedText.split("\n"));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const debounceLoadData = React.useCallback(
@@ -17,15 +32,24 @@ const TranslatedText = () => {
   );
 
   React.useEffect(() => {
-    debounceLoadData(text);
-  }, [text]);
+    debounceLoadData(text, tl, sl);
+  }, [text, tl, sl]);
 
-  return <Container>TranslatedText</Container>;
+  return (
+    <Container $rtl={isRTL}>
+      {translatedText.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))}
+    </Container>
+  );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ $rtl: boolean }>`
   background-color: #757575;
-  text-align: left;
+  text-align: ${(props) => (props.$rtl ? "right" : "left")};
   padding: 16px;
   font-size: 18px;
 `;
