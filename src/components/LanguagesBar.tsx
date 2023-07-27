@@ -4,6 +4,7 @@ import { AVAILABLE_LANGUAGES } from "utils/constants";
 import { SwitchIcon } from "../assets/SwitchIcon";
 import { Select, SelectProps } from "antd";
 import { useSearchParams } from "react-router-dom";
+import { palette } from "theme/palette";
 
 const LanguagesBar = () => {
   const [searchParams, setURLSearchParams] = useSearchParams();
@@ -29,11 +30,19 @@ const LanguagesBar = () => {
   };
 
   const handleChangeSourceLang = (value: string) => {
+    if(value === targetLang) {
+      switchLangsHandler()
+      return;
+    }
     setSourceLang(value);
     setLangParam("sl", value);
   };
 
   const handleChangeTargetLang = (value: string) => {
+    if(value === sourceLang) {
+      switchLangsHandler()
+      return;
+    }
     setTargetLang(value);
     setLangParam("tl", value);
   };
@@ -51,9 +60,9 @@ const LanguagesBar = () => {
         options={AVAILABLE_LANGUAGES.map((language) => ({
           value: language.code,
           label: language.name,
-          disabled: language.code === targetLang,
         }))}
         bordered={false}
+        dropdownStyle={{ backgroundColor: palette.primary[400] }}
       />
       <button onClick={switchLangsHandler}>
         <SwitchIcon />
@@ -64,8 +73,8 @@ const LanguagesBar = () => {
         options={AVAILABLE_LANGUAGES.map((language) => ({
           value: language.code,
           label: language.name,
-          disabled: language.code === sourceLang,
         }))}
+        dropdownStyle={{ backgroundColor: palette.primary[400] }}
         bordered={false}
       />
     </Container>
@@ -73,10 +82,10 @@ const LanguagesBar = () => {
 };
 
 const Container = styled.div`
-  background-color: #424242;
+  background-color: ${props => props.theme.primary.main};
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #616161;
+  border-bottom: 1px solid ${props => props.theme.primary[700]};
 
   div {
     flex: 1;

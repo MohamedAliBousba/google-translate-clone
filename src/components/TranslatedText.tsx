@@ -48,7 +48,7 @@ const TranslatedText = () => {
 };
 
 const Container = styled.div<{ $rtl: boolean }>`
-  background-color: #757575;
+  background-color: ${props => props.theme.primary[600]};
   text-align: ${(props) => (props.$rtl ? "right" : "left")};
   padding: 16px;
   font-size: 18px;
