@@ -31,7 +31,7 @@ function App() {
 const Container = styled.div`
   text-align: center;
   color: #ffffff;
-  height: 50vh;
+  height: 70vh;
   width: 80vw;
   background-color: ${(props) => props.theme.primary.main};
   border-radius: 16px;
@@ -49,6 +49,7 @@ const Container = styled.div`
 
   .translation-boxes div {
     flex: 1;
+    height: auto;
   }
 `;
 

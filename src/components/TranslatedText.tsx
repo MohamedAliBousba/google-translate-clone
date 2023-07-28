@@ -31,9 +31,9 @@ const TranslatedText = () => {
     []
   );
 
-  React.useEffect(() => {
-    debounceLoadData(text, tl, sl);
-  }, [text, tl, sl]);
+  // React.useEffect(() => {
+  //   debounceLoadData(text, tl, sl);
+  // }, [text, tl, sl]);
 
   return (
     <Container $rtl={isRTL}>
@@ -52,6 +52,7 @@ const Container = styled.div<{ $rtl: boolean }>`
   text-align: ${(props) => (props.$rtl ? "right" : "left")};
   padding: 16px;
   font-size: 18px;
+  word-break: break-all;
 `;
 
 export default TranslatedText;
