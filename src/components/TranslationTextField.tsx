@@ -4,13 +4,17 @@ import CloseIcon from "../assets/CloseIcon";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { useSpeechSynthesis } from "react-speech-kit";
 import { useSearchParams } from "react-router-dom";
 import MicIcon from "assets/MicIcon";
 import PauseIcon from "assets/PauseIcon";
+import SpeakerIcon from "assets/SpeakerIcon";
 
 const TranslationTextField = () => {
   const [searchParams, setURLSearchParams] = useSearchParams();
   const [text, setText] = React.useState(searchParams.get("text") || "");
+  const { speak, cancel, speaking, supported } = useSpeechSynthesis();
+
   const {
     transcript,
     listening,
@@ -44,6 +48,14 @@ const TranslationTextField = () => {
     }
   };
 
+  const handleSpeak = () => {
+    if (speaking) {
+      cancel();
+    } else {
+      speak({ text });
+    }
+  };
+
   React.useEffect(() => {
     if (!transcript) return;
     setTextParam(transcript);
@@ -61,11 +73,18 @@ const TranslationTextField = () => {
           <CloseIcon />
         </button>
       </div>
-      {browserSupportsSpeechRecognition && (
-        <button className="start-speech" onClick={handleSpeech}>
-          {listening ? <PauseIcon /> : <MicIcon />}
-        </button>
-      )}
+      <Actions>
+        {browserSupportsSpeechRecognition && (
+          <button onClick={handleSpeech}>
+            {listening ? <PauseIcon /> : <MicIcon />}
+          </button>
+        )}
+        {supported && text && (
+          <button onClick={handleSpeak}>
+            {speaking ? <PauseIcon /> : <SpeakerIcon />}
+          </button>
+        )}
+      </Actions>
     </Container>
   );
 };
@@ -85,12 +104,6 @@ const Container = styled.div`
     }
   }
 
-  .start-speech {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-  }
-
   textarea {
     width: 100%;
     height: 87%;
@@ -106,11 +119,11 @@ const Container = styled.div`
     &::-webkit-scrollbar {
       width: 12px;
     }
-    
+
     &::-webkit-scrollbar-thumb {
-      border: 2px solid ${props => props.theme.primary.main};
+      border: 2px solid ${(props) => props.theme.primary.main};
       border-radius: 20px;
-      background-color: ${props => props.theme.primary[700]};
+      background-color: ${(props) => props.theme.primary[700]};
     }
   }
 
@@ -123,6 +136,15 @@ const Container = styled.div`
     top: 16px;
     right: 16px;
   }
+`;
+
+const Actions = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 export default TranslationTextField;

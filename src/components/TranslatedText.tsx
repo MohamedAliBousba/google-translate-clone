@@ -31,9 +31,9 @@ const TranslatedText = () => {
     []
   );
 
-  React.useEffect(() => {
-    debounceLoadData(text, tl, sl);
-  }, [text, tl, sl]);
+  // React.useEffect(() => {
+  //   debounceLoadData(text, tl, sl);
+  // }, [text, tl, sl]);
 
   return (
     <Container $rtl={isRTL}>
