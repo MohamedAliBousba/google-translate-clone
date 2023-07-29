@@ -73,9 +73,6 @@ const TranslationTextField = () => {
 const Container = styled.div`
   position: relative;
   height: auto;
-  div {
-    height: 100%;
-  }
 
   button {
     cursor: pointer;
@@ -96,7 +93,7 @@ const Container = styled.div`
 
   textarea {
     width: 100%;
-    height: 100%;
+    height: 87%;
     background-color: inherit;
     border: none;
     outline: none;
@@ -105,6 +102,16 @@ const Container = styled.div`
     padding: 16px 40px 24px 16px;
     font-size: 18px;
     resize: none;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      border: 2px solid ${props => props.theme.primary.main};
+      border-radius: 20px;
+      background-color: ${props => props.theme.primary[700]};
+    }
   }
 
   textarea:placeholder-shown + .text-clear {
