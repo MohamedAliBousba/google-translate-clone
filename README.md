@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+# Google Translate Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Google Translate Clone is a personal project to create a web application replicating the core functionalities of the popular online language translation service, Google Translate. This project seeks to translate text between multiple languages easily.
 
-## Available Scripts
+<img src="https://i.postimg.cc/FH2Pw2yZ/google-translate-clone.png" alt="Google Translate Clone" />
 
-In the project directory, you can run:
+# Key Features
 
-### `npm start`
+* __Language Translation:__  Users can input text in one language and obtain accurate translations in their desired target language. The application supports a wide range of languages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* __Text-to-Speech:__ Users can listen to the translated text in their chosen target language, enhancing language learning and pronunciation practice.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* __Translating by Speech:__ the application incorporates speech recognition functionality. Users can translate spoken language directly into text, making it especially useful in hands-free scenarios.
 
-### `npm test`
+* __Copy Translated Text:__ the application provides a copy button, allowing users to quickly copy the translated text and paste it into other applications or platforms.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Demo 
 
-### `npm run build`
+The application has been deployed and is accessible on Vercel using the following link: https://google-translate-clone-dark.vercel.app/ 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Technologies & Libraries
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* React.js
+* TypeScript
+* Styled Components
+* react-speech-kit library
+* react-speech-recognition library
+* Text Translator API 
+* axios
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
