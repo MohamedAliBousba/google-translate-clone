@@ -16,3 +16,15 @@ code {
 * {
   box-sizing: border-box;
 }
+
+button {
+  cursor: pointer;
+  background-color: inherit;
+  opacity: 0.8;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 1;
+}

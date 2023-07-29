@@ -92,16 +92,6 @@ const Container = styled.div`
     padding: 16px 0;
     text-transform: uppercase;
   }
-
-  button {
-    background-color: inherit;
-    opacity: 0.8;
-    border: none;
-    cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
-  }
 `;
 
 const StyledSelect: React.FC<SelectProps> = styled(Select)`

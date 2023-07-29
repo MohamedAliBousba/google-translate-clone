@@ -93,17 +93,6 @@ const Container = styled.div`
   position: relative;
   height: auto;
 
-  button {
-    cursor: pointer;
-    background-color: inherit;
-    opacity: 0.8;
-    border: none;
-    cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
-  }
-
   textarea {
     width: 100%;
     height: 87%;
