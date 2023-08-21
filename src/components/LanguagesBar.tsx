@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { AVAILABLE_LANGUAGES } from "utils/constants";
+import { AVAILABLE_LANGUAGES, DEFAULT_SOURCE_LANGUAGE, DEFAULT_TARGET_LANGUAGE } from "utils/constants";
 import { SwitchIcon } from "../assets/SwitchIcon";
 import { Select, SelectProps } from "antd";
 import { useSearchParams } from "react-router-dom";
@@ -9,10 +9,10 @@ import { palette } from "theme/palette";
 const LanguagesBar = () => {
   const [searchParams, setURLSearchParams] = useSearchParams();
   const [sourceLang, setSourceLang] = React.useState(
-    searchParams.get("sl") || "en"
+    searchParams.get("sl") || DEFAULT_SOURCE_LANGUAGE
   );
   const [targetLang, setTargetLang] = React.useState(
-    searchParams.get("tl") || "ar"
+    searchParams.get("tl") || DEFAULT_TARGET_LANGUAGE
   );
 
   const setLangParam = (key: string, value: string) =>
@@ -48,8 +48,8 @@ const LanguagesBar = () => {
   };
 
   React.useEffect(() => {
-    if (!searchParams.get("sl")) handleChangeSourceLang("en");
-    if (!searchParams.get("tl")) handleChangeTargetLang("ar");
+    if (!searchParams.get("sl")) handleChangeSourceLang(DEFAULT_SOURCE_LANGUAGE);
+    if (!searchParams.get("tl")) handleChangeTargetLang(DEFAULT_TARGET_LANGUAGE);
   }, []);
 
   return (

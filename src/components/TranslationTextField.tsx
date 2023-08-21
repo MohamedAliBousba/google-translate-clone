@@ -9,11 +9,15 @@ import { useSearchParams } from "react-router-dom";
 import MicIcon from "assets/MicIcon";
 import PauseIcon from "assets/PauseIcon";
 import SpeakerIcon from "assets/SpeakerIcon";
+import { DEFAULT_SOURCE_LANGUAGE } from "utils/constants";
 
 const TranslationTextField = () => {
   const [searchParams, setURLSearchParams] = useSearchParams();
   const [text, setText] = React.useState(searchParams.get("text") || "");
+  const [voice, setVoice] = React.useState<SpeechSynthesisVoice | null>(null);
   const { speak, cancel, speaking, supported } = useSpeechSynthesis();
+  const sl = searchParams.get("sl") || DEFAULT_SOURCE_LANGUAGE;
+  const voices = window.speechSynthesis.getVoices();
 
   const {
     transcript,
@@ -52,7 +56,7 @@ const TranslationTextField = () => {
     if (speaking) {
       cancel();
     } else {
-      speak({ text });
+      speak({ text, voice });
     }
   };
 
@@ -60,6 +64,13 @@ const TranslationTextField = () => {
     if (!transcript) return;
     setTextParam(transcript);
   }, [transcript]);
+
+  React.useEffect(() => {
+    const voice = voices.find((voice: SpeechSynthesisVoice) =>
+      voice.lang.includes(sl)
+    );
+    setVoice(voice || null);
+  }, [sl, voices]);
 
   return (
     <Container>
@@ -79,7 +90,7 @@ const TranslationTextField = () => {
             {listening ? <PauseIcon /> : <MicIcon />}
           </button>
         )}
-        {supported && text && (
+        {supported && text && voice && (
           <button onClick={handleSpeak}>
             {speaking ? <PauseIcon /> : <SpeakerIcon />}
           </button>

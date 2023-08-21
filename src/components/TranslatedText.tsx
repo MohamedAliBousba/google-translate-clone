@@ -7,15 +7,21 @@ import { translate } from "api/translations";
 import SpeakerIcon from "assets/SpeakerIcon";
 import CopyIcon from "assets/CopyIcon";
 import PauseIcon from "assets/PauseIcon";
+import {
+  DEFAULT_SOURCE_LANGUAGE,
+  DEFAULT_TARGET_LANGUAGE,
+} from "utils/constants";
 
 const TranslatedText = () => {
   const [searchParams] = useSearchParams();
   const { speak, cancel, speaking, supported } = useSpeechSynthesis();
   const text = searchParams.get("text") || "";
-  const tl = searchParams.get("tl") || "ar";
-  const sl = searchParams.get("sl") || "ar";
+  const tl = searchParams.get("tl") || DEFAULT_TARGET_LANGUAGE;
+  const sl = searchParams.get("sl") || DEFAULT_SOURCE_LANGUAGE;
   const isRTL = ["ar", "fa", "ur"].includes(tl);
   const [translatedText, setTranslatedText] = React.useState<string[]>([]);
+  const [voice, setVoice] = React.useState<SpeechSynthesisVoice | null>(null);
+  const voices = window.speechSynthesis.getVoices();
 
   const translateHandler = async (value: string, tl: string, sl: string) => {
     if (!value) {
@@ -35,7 +41,7 @@ const TranslatedText = () => {
     if (speaking) {
       cancel();
     } else {
-      speak({ text: translatedText.join("\n").toString() });
+      speak({ text: translatedText.join("\n").toString(), voice });
     }
   };
 
@@ -53,6 +59,13 @@ const TranslatedText = () => {
     debounceLoadData(text, tl, sl);
   }, [text, tl, sl]);
 
+  React.useEffect(() => {
+    const voice = voices.find((voice: SpeechSynthesisVoice) =>
+      voice.lang.includes(tl)
+    );
+    setVoice(voice || null);
+  }, [tl, voices]);
+
   return (
     <Container $rtl={isRTL}>
       <div>
@@ -65,11 +78,13 @@ const TranslatedText = () => {
       </div>
       {translatedText.length !== 0 && (
         <Actions>
-          {supported && (
-            <button onClick={handleSpeak}>
-              {speaking ? <PauseIcon /> : <SpeakerIcon />}
-            </button>
-          )}
+          <div>
+            {supported && voice && (
+              <button onClick={handleSpeak}>
+                {speaking ? <PauseIcon /> : <SpeakerIcon />}
+              </button>
+            )}
+          </div>
           <button onClick={copyHandler}>
             <CopyIcon />
           </button>
